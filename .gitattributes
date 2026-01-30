@@ -1,0 +1,47 @@
+# Set default behavior for text files
+* text=auto
+
+# Define macros for clarity (only works in top-level gitattributes)
+[attr]lfs filter=lfs diff=lfs merge=lfs -text
+[attr]unity-yaml merge=unityyamlmerge eol=lf linguist-language=yaml
+
+# Unity source files
+*.cs text diff=csharp
+*.shader text
+
+# Unity YAML files (using Smart Merge and LF line endings)
+*.anim unity-yaml
+*.asset unity-yaml
+*.controller unity-yaml
+*.mat unity-yaml
+*.prefab unity-yaml
+*.unity unity-yaml
+*.physicsMaterial2D unity-yaml
+*.physicMaterial unity-yaml
+
+# Use Git LFS for large assets (common in 2D projects)
+# Images
+*.bmp lfs
+*.exr lfs
+*.gif lfs
+*.hdr lfs
+*.iff lfs
+*.jpeg lfs
+*.jpg lfs
+*.pict lfs
+*.png lfs
+*.psd lfs
+*.tga lfs
+*.tif lfs
+*.tiff lfs
+
+# Audio
+*.aif lfs
+*.aiff lfs
+*.mp3 lfs
+*.ogg lfs
+*.wav lfs
+
+# Fonts
+*.otf lfs
+*.ttf lfs
