@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Gender
 {
@@ -32,18 +33,38 @@ public class Patient : MonoBehaviour
     public PatientState patientState;
     public float timeTilTalk;
     public PatientSprite patientSprite;
-    public GameObject sad, anger, confuse, anxiety;
+    public GameObject sad, anger, confuse, anxiety, msad, manger, mconfuse, manxiety,fsad, fanger, fconfuse, fanxiety;
     public bool maskGiven;
     public int currentZone = 1;
     public bool agressive;
+    public GameObject[] males;
+    public GameObject[] females;
     void Start()
     {
-        //   correctMask = (MaskType)Random.Range(0, 5);
+          correctMask = (MaskType)Random.Range(0, 4);
 
-        correctMask = (MaskType)0;
+       // correctMask = (MaskType)0;
         patientName = MainStall.instance.GetRandomName();
         ConvertName(patientName);
         gender = (Gender)Random.Range(0, 2);
+        if (gender == Gender.Male)
+        {
+            GameObject randomObj = males[Random.Range(0, males.Length)];
+            randomObj.SetActive(true);
+            sad = msad;
+            anger = manger;
+            confuse = mconfuse;
+            anxiety = manxiety;
+        }
+        else
+        {
+            GameObject randomObj = females[Random.Range(0, females.Length)];
+            randomObj.SetActive(true);
+            sad = fsad;
+            anger = fanger;
+            confuse = fconfuse;
+            anxiety = fanxiety;
+        }
         age = Random.Range(21, 61);
         timeTilTalk = GenerateWaitTime();
         int possible = Random.Range(1, 8);
@@ -372,6 +393,10 @@ public class Patient : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Menu")
+        {
+            Destroy(gameObject);
+        }
         if (maskGiven)
             switch (maskGet)
             {

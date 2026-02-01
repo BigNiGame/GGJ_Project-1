@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -46,13 +48,11 @@ public class MainStall : MonoBehaviour
         paperContent;
     
     private int c, w, i;
-    public GameObject patientPF, questionBlock, dialogueBlock, closePaperBGO,dayFinishNoti;
+    public GameObject patientPF, questionBlock, dialogueBlock,dayFinishNoti,settingGO,settingBGO, documentGO,documentBGO;
     public TextAsset firstname, lastname;
     string[] firstNames;
-    string[] lastNames;
-    public RectTransform paperRect, paperBRect;
+    string[] lastNames; 
     public bool paperOn;
-    private Vector2 paperTpos, paperBTpos;
     public TextRenderer dialogue;
     List<string> availableNames = new List<string>();
     public Button feelB, dotoB;
@@ -61,8 +61,27 @@ public class MainStall : MonoBehaviour
     GameManager gameManager;
     public List<Patient> patients = new List<Patient>();
     public TextMeshProUGUI currentDayTxt, quotaTxt;
+    public MaskType selectedMask;
+    private bool maskSelected;
+    public GameObject sadI,angerI,confuseI,anxietyI;
+    public Sprite red,green;
+    public SpriteRenderer gateLight1,gateLight2;
+    public GameObject gate1,gate2;
+    public bool gateOpen;
+    public MaskType randomMask;
+    public GameObject summaryGO;
+    Tween gate1Ani, gate2Ani;
+    private bool fail;
+    public TextMeshProUGUI tpT, cmT, plT,quotaT;
+    public Image judgeI;
+    public Sprite passSp, failSp;
+    public GameObject homeB, restartB, nextB;
+    public ParticleSystem german1, german2, german3;
+    public AudioSource music;
     void Awake()
     {
+        
+        instance = this;
         firstNames = firstname.text.Split(new[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
         lastNames = lastname.text.Split(new[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
 
@@ -71,25 +90,34 @@ public class MainStall : MonoBehaviour
 
     void Start()
     {
-        instance = this;
+       
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         todayPatient = Random.Range(3, 5);
-        SpawnPatient();
-        currentDayTxt.text = "Day "+gameManager.currentDay.ToString();
-        quotaTxt.text = "Quota "+gameManager.currentPatientCuredThisQuota.ToString() + "/" + gameManager.quotaPatient.ToString();
+     
+        currentDayTxt.text = gameManager.currentDay.ToString();
+        quotaTxt.text =gameManager.currentPatientCuredThisQuota.ToString();
     }
 
+    public void GameStart()
+    {
+        SpawnPatient();
+        GateOn();
+        
+    }
     // Update is called once per frame
     void Update()
     {
         indexT.text = i.ToString();
-       
+        music.volume = Audio.instance.musicVolume * 0.1f;
         if (currentPatient != null)
         {
             info.text = currentPatient.correctMask.ToString();
             feelB.interactable = !currentPatient.feelAsked;
             dotoB.interactable = !currentPatient.todoAsked;
-            
+            if (currentPatient.patientState == PatientState.Idle || currentPatient.patientState == PatientState.Leaving)
+            {
+                
+            }
             UpdatePaper();
           
             if (playerState == PlayerState.Idle && !dialogueBlock.activeSelf)
@@ -124,21 +152,45 @@ public class MainStall : MonoBehaviour
         {
             MouseClick();
         }
-        if (paperOn)
+     
+        sadI.SetActive(false);
+        angerI.SetActive(false);
+        confuseI.SetActive(false);
+        anxietyI.SetActive(false);
+        if (maskSelected)
         {
-            paperTpos = new Vector2(-400, 0);
-            paperBTpos = new Vector2(-30, 0);
+            switch (selectedMask)
+            {
+                
+                case MaskType.Sad:
+                    sadI.SetActive(true);
+                    break;
+                case MaskType.Anger:
+                    angerI.SetActive(true);
+                    break;
+                case MaskType.Confuse:
+                    confuseI.SetActive(true);
+                    break;
+                case MaskType.Anxiety:
+                    anxietyI.SetActive(true);
+                    break;
+            }
         }
-        else
-        {
-            paperTpos = new Vector2(400, 0);
-            paperBTpos = new Vector2(30, 0);
-        }
-        paperRect.anchoredPosition = Vector2.Lerp(paperRect.anchoredPosition, paperTpos, Time.deltaTime * 50);
-        paperBRect.anchoredPosition = Vector2.Lerp(paperBRect.anchoredPosition, paperBTpos, Time.deltaTime * 50);
-        
+       
+       
     }
-
+    public void SettingOn()
+    {
+        Audio.instance.PlaySound("Button");
+        settingGO.transform.DOMoveX(-7.25f, 0.5f).SetEase(Ease.OutQuad);
+        settingBGO.transform.DOMoveX(-11f, 0.5f).SetEase(Ease.OutQuad);
+    }
+    public void SettingOff()
+    {
+        Audio.instance.PlaySound("Button");
+        settingGO.transform.DOMoveX(-12.25f, 0.5f).SetEase(Ease.InQuad);
+        settingBGO.transform.DOMoveX(-9.2f, 0.5f).SetEase(Ease.InQuad);
+    }
     void RandomTalk()
     {
         dialogueBlock.SetActive(true);
@@ -174,6 +226,7 @@ public class MainStall : MonoBehaviour
       
 
         paperContent.text = currentPatient.historytxt;
+        
     }
 
     void GenerateAllNames()
@@ -206,6 +259,7 @@ public class MainStall : MonoBehaviour
 
     public void Finish()
     {
+        GateOn();
         StartCoroutine(CureCutScene());
     }
     public string GetRandomName()
@@ -230,6 +284,7 @@ public class MainStall : MonoBehaviour
 
     public void TalkAction(int i)
     {
+        Audio.instance.PlaySound("Button");
         dialogueBlock.SetActive(true);
         switch (i)
         {
@@ -257,25 +312,61 @@ public class MainStall : MonoBehaviour
     IEnumerator CureCutScene()
     {
         yield return new WaitForSeconds(1);
+        int loss = 0;
         foreach (Patient p in patients)
         {
            p.patientSprite.targetPosition = new Vector3(30, 0);
            p.patientState = PatientState.WalkIn;
-           yield return new WaitForSeconds(4);
+         
+           yield return new WaitForSeconds(1.5f);
+           german1.Play();
+           german2.Play();
+           german3.Play();
+           Color c = Color.white;
+           switch (p.maskGet)
+           {
+               case MaskType.Sad:
+                   ColorUtility.TryParseHtmlString("#26C5FF", out c);
+                   break;
+
+               case MaskType.Anger:
+                   ColorUtility.TryParseHtmlString("#FF2626", out c);
+                   break;
+
+               case MaskType.Confuse:
+                   ColorUtility.TryParseHtmlString("#939393", out c);
+                   break;
+               case MaskType.Anxiety:
+                   ColorUtility.TryParseHtmlString("#DBC93A", out c);
+                   break;
+               
+                   
+               
+           }
+           
+           german1.startColor = c;
+           german2.startColor = c;
+           german3.startColor = c;
+           yield return new WaitForSeconds(2);
+           german1.Stop();
+           german2.Stop();
+           german3.Stop();
+           yield return new WaitForSeconds(1);
            if (p.maskGet == p.correctMask)
            {
+               yield return new WaitForSeconds(1.5f);
                p.patientSprite.targetPosition = new Vector3(15, 0);
                p.patientState = PatientState.Leaving;
                
            }
            else
            {
+              
                p.agressive = true;
                yield return new WaitForSeconds(3);
                p.patientSprite.targetPosition = new Vector3(15, 0);
                p.patientState = PatientState.Leaving;
            }
-           yield return new WaitForSeconds(1);
            if (p.maskGet == p.correctMask)
            {
                gameManager.currentPatientCuredThisQuota++;
@@ -289,29 +380,79 @@ public class MainStall : MonoBehaviour
                    if (r)
                    {
                        gameManager.currentPatientCuredThisQuota--;
+                       loss++ ;
                    }
                }
            }
-           quotaTxt.text = "Quota "+gameManager.currentPatientCuredThisQuota.ToString() + "/" + gameManager.quotaPatient.ToString();
+           quotaTxt.text =gameManager.currentPatientCuredThisQuota.ToString();
            yield return new WaitForSeconds(1);
            
         }
+
+        summaryGO.transform.DOMoveY(0, 0.5f).SetEase(Ease.InQuad);
+        tpT.text = "Total Patient Today: " + i.ToString();
+        cmT.text = "Correct Mask: " + c.ToString();
+        plT.text = "Patient Loss: " + loss.ToString();
+        if (gameManager.quotaDay == gameManager.currentDay)
+        {
+            quotaT.gameObject.SetActive(true);
+            judgeI.gameObject.SetActive(true);
+            if (gameManager.currentPatientCuredThisQuota >= 4)
+            {
+                judgeI.sprite = passSp;
+                homeB.SetActive(false);
+                restartB.SetActive(false);
+                nextB.SetActive(true);
+            }
+            else
+            {
+                fail = true;
+                judgeI.sprite = failSp;
+                homeB.SetActive(true);
+                restartB.SetActive(true);
+                nextB.SetActive(false);
+            }
+        }
+        else
+        {
+            homeB.SetActive(false);
+            restartB.SetActive(false);
+            nextB.SetActive(true);
+        }
+        
     }
-    public void GiveMask(int maskInt)
+
+    public void SelectingMask(int maskInt)
     {
         if (currentPatient == null)
             return;
         if (currentPatient.patientState == PatientState.Leaving || currentPatient.patientState == PatientState.WalkIn)
             return;
+        Audio.instance.PlaySound("Button");
+        maskSelected = true;
+        selectedMask = (MaskType)maskInt;
+        
+
+  
+    }
+    public void GiveMask()
+    {
+        if (currentPatient == null)
+            return;
+        if (currentPatient.patientState == PatientState.Leaving || currentPatient.patientState == PatientState.WalkIn)
+            return;
+        if (!maskSelected)
+            return;
+        Audio.instance.PlaySound("Mask");
         idleCoolTime = 5;
         waitTimer = 0;
         questionBlock.SetActive(false);
-        paperOn = false;
+        DocumentOff();
         dialogue.SkipTyping();
         dialogue.StopAllCoroutines();
         dialogue.canClose = true;
         dialogueBlock.SetActive(false);
-        MaskType mask = (MaskType)maskInt;
+        MaskType mask = selectedMask;
         currentPatient.maskGet = mask;
         if (mask == currentPatient.correctMask)
         {
@@ -323,7 +464,7 @@ public class MainStall : MonoBehaviour
             w++;
             wrong.text = w.ToString();
         }
-
+maskSelected = false;
         currentPatient.Maskgiven();
         patients.Add(currentPatient);
         currentPatient = null;
@@ -341,10 +482,12 @@ public class MainStall : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
         DayFinish();
+        GateOff();
     }
     void DayFinish()
     {
-        dayFinishNoti.SetActive(true);
+        dayFinishNoti.transform.DOMoveY(0f, 0.5f).SetEase(Ease.InQuad);
+        
     }
     public void ToggleQuestion()
     {
@@ -358,16 +501,104 @@ public class MainStall : MonoBehaviour
             playerState = PlayerState.Idle;
         }
     }
-    
-
-    public void TogglePaper()
+    public void ToggleGate()
     {
-        paperOn = !paperOn;
+        gateOpen = !gateOpen;
+        if (gateOpen)
+        {
+            GateOn();
+           
+        }
+        else
+        {
+            GateOff();
+          
+        }
+    }
+    public void GateOn()
+    {
+        Audio.instance.PlaySound("GOpen");
+        gate1Ani  = gate1.transform.DOMoveY(8f, 0.5f).SetEase(Ease.OutQuad);
+        gate2Ani  = gate2.transform.DOMoveY(8f, 0.5f).SetEase(Ease.OutQuad);
+        gateOpen = true;
+        gateLight1.sprite = green;
+        gateLight2.sprite = green;
+    }
+    public void GateOff()
+    {
+        Audio.instance.PlaySound("GClose");
+        gate1Ani  = gate1.transform.DOMoveY(1.94f, 0.5f).SetEase(Ease.InQuad);
+        gate2Ani  = gate2.transform.DOMoveY(1.94f, 0.5f).SetEase(Ease.InQuad);
+        gateOpen = false;
+        gateLight1.sprite = red;
+        gateLight2.sprite = red;
     }
 
-    public void ClosePaper()
+    public void ToggleDocument()
     {
+        if(currentPatient == null)
+            return;
+        if(currentPatient.patientState == PatientState.Leaving|| currentPatient.patientState == PatientState.WalkIn)
+            return;
+        Audio.instance.PlaySound("Doc");
+        paperOn = !paperOn;
+        if (paperOn)
+        {
+            DocumentOn();
+        }
+        else
+        {
+            DocumentOff();
+        }
+    }
+    public void DocumentOn()
+    {
+        
+        documentGO.transform.DOMoveX(6f, 0.5f).SetEase(Ease.OutQuad);
+        paperOn = true;
+       // documentBGO.transform.DOMoveX(-11f, 0.5f).SetEase(Ease.OutQuad);
+    }
+    public void DocumentOff()
+    {
+        documentGO.transform.DOMoveX(14f, 0.5f).SetEase(Ease.InQuad);
         paperOn = false;
+       // documentBGO.transform.DOMoveX(-9.2f, 0.5f).SetEase(Ease.InQuad);
+    }
+
+    public void GoMainMenu()
+    {
+        Audio.instance.PlaySound("Button");
+        StopAllCoroutines();
+        SceneTransitionData.entryType = SceneEntryType.FromGame;
+       
+        gameManager.ResetGame();
+        gate1Ani.Kill();
+        gate2Ani.Kill();
+        SceneFader.instance.FadeToScene("MainMenu");
+    }
+
+    public void NextDay()
+    {
+        Audio.instance.PlaySound("Button");
+        StopAllCoroutines();
+        SceneTransitionData.entryType = SceneEntryType.FromGame;
+      
+        gameManager.NextDay();
+        gate1Ani.Kill();
+        gate2Ani.Kill();
+        SceneFader.instance.FadeToScene("InGame");
+    }
+
+    public void RestartGame()
+    {
+        Audio.instance.PlaySound("Button");
+        StopAllCoroutines();
+        SceneTransitionData.entryType = SceneEntryType.FromGame;
+      
+        gate1Ani.Kill();
+        gate2Ani.Kill();
+        gameManager.ResetGame();
+        SceneFader.instance.FadeToScene("InGame");
     }
     public void SetCamera(int station)
     {
@@ -381,8 +612,8 @@ public class MainStall : MonoBehaviour
             
                 break;   
             case 1: xPos = 30f; 
-                dayFinishNoti.SetActive(false);
-                paperOn = false;
+              
+                DocumentOff();
                 break;  
             default: xPos = 0f; break;
         }

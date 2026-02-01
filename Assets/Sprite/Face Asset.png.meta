@@ -1,0 +1,423 @@
+fileFormatVersion: 2
+guid: c3ad8c264fdcc3845b85785d3b2bc41d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3545140816069342115
+    second: Face Asset_0
+  - first:
+      213: 5560839947470466664
+    second: Face Asset_1
+  - first:
+      213: -7515443064864606852
+    second: Face Asset_2
+  - first:
+      213: -4824987004217272093
+    second: Face Asset_3
+  - first:
+      213: -6851609550605819751
+    second: Face Asset_4
+  - first:
+      213: 8443498468176128440
+    second: Face Asset_5
+  - first:
+      213: -2604087206366371900
+    second: Face Asset_6
+  - first:
+      213: 3426352951469018199
+    second: Face Asset_7
+  - first:
+      213: -5921227444404499945
+    second: Face Asset_8
+  - first:
+      213: 6494769833169943335
+    second: Face Asset_9
+  - first:
+      213: 647392857230683458
+    second: Face Asset_10
+  - first:
+      213: 8473340696836734296
+    second: Face Asset_11
+  - first:
+      213: -8659497546882449164
+    second: Face Asset_12
+  - first:
+      213: 9211670790602247441
+    second: Face Asset_13
+  - first:
+      213: -8180731656339640113
+    second: Face Asset_14
+  - first:
+      213: 3059565722465681342
+    second: Face Asset_15
+  - first:
+      213: 1003510253468580032
+    second: Face Asset_16
+  - first:
+      213: -2425566658515193211
+    second: Face Asset_17
+  - first:
+      213: 1037913000983200498
+    second: Face Asset_18
+  - first:
+      213: 6441204752005928878
+    second: Face Asset_19
+  - first:
+      213: -8376220055385576831
+    second: Face Asset_20
+  - first:
+      213: -9195295925182915902
+    second: Face Asset_21
+  - first:
+      213: -1262298324627856176
+    second: Face Asset_22
+  - first:
+      213: -8446403196693674621
+    second: Face Asset_23
+  - first:
+      213: 1332267113278476751
+    second: Face Asset_24
+  - first:
+      213: 8031897693524519635
+    second: Face Asset_25
+  - first:
+      213: -7382647215765329608
+    second: Face Asset_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Face Asset_0
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 958
+        width: 175
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5cc273f5312dcec0800000000000000
+      internalID: -3545140816069342115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face Asset_1
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 959
+        width: 175
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86e67c938721c2d40800000000000000
+      internalID: 5560839947470466664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face Asset_2
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 959
+        width: 175
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c75721dd958c3b790800000000000000
+      internalID: -7515443064864606852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face Asset_3
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 959
+        width: 175
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e8d0cf22e33a0db0800000000000000
+      internalID: -4824987004217272093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face Asset_4
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 675
+        width: 175
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38589572b0958ca80800000000000000
+      internalID: -8446403196693674621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face Asset_5
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 675
+        width: 175
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc116e081e92d7210800000000000000
+      internalID: 1332267113278476751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face Asset_6
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 675
+        width: 175
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3daeeceb568077f60800000000000000
+      internalID: 8031897693524519635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face Asset_7
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 681
+        width: 175
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 839e742e8719b8990800000000000000
+      internalID: -7382647215765329608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d68487b385c02064f8e08098438107e3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Face Asset_0: -3545140816069342115
+      Face Asset_1: 5560839947470466664
+      Face Asset_10: 647392857230683458
+      Face Asset_11: 8473340696836734296
+      Face Asset_12: -8659497546882449164
+      Face Asset_13: 9211670790602247441
+      Face Asset_14: -8180731656339640113
+      Face Asset_15: 3059565722465681342
+      Face Asset_16: 1003510253468580032
+      Face Asset_17: -2425566658515193211
+      Face Asset_18: 1037913000983200498
+      Face Asset_19: 6441204752005928878
+      Face Asset_2: -7515443064864606852
+      Face Asset_20: -8376220055385576831
+      Face Asset_21: -9195295925182915902
+      Face Asset_22: -1262298324627856176
+      Face Asset_3: -4824987004217272093
+      Face Asset_4: -8446403196693674621
+      Face Asset_5: 1332267113278476751
+      Face Asset_6: 8031897693524519635
+      Face Asset_7: -7382647215765329608
+      Face Asset_8: -5921227444404499945
+      Face Asset_9: 6494769833169943335
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

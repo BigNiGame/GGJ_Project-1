@@ -1,2 +1,3 @@
-AnxietyHistory1
-AnxietyHistory2
+\tAn office worker who handles paperwork, living life by the clock.|\t[They] constantly double-checks [them] schedule before leaving home, afraid of overlooking even the smallest detail, and always prepares backup plans to guard against what might go wrong.|\tThe constant worry about not missing out caused [them] to become paranoid and lose self-confidence.
+\tA freelance professional who works remotely from home, spending most of [their] time within a single room and leaving the house only when necessary.|\t[Their] work communication is primarily conducted through written messages or nonverbal cues rather than spoken interaction.|\t[They] maintains a carefully structured daily routine and experiences significant discomfort when that program is disrupted or when circumstances fall beyond [their] control.
+\tA small business owner who never goes anywhere beyond the same familiar route each day. [They] instinctively grips whatever is in [their] hands when loud noises occur or when faced with unfamiliar situations.|\t[Their] life is defined by constant vigilance and avoidance of anything that might introduce uncertainty.

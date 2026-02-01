@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
         if (currentDay == quotaDay)
         {
             quotaDay +=2;
+            currentPatientCuredThisQuota = 0;
         }
         currentDay++;
        
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     {
         currentDay = 1;
         quotaDay = 2;
+        currentPatientCuredThisQuota = 0;
     }
     void Awake()
     {
